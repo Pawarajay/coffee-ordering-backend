@@ -31,7 +31,6 @@ const { startAccountingCrons }  = require('./modules/accounting/accounting.cron'
 const { startProductionCrons }  = require('./modules/production/production.cron');
 
 
-
 const app = express();
 
 app.use(helmet());
@@ -40,8 +39,7 @@ app.use(
   cors({
     origin: env.IS_PRODUCTION
       ? [
-          'https://toof.in',
-          'https://kiosk.toof.in',
+          'https://localhost:3000',
         ]
       : '*',
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
