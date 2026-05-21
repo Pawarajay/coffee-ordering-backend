@@ -3,6 +3,7 @@ node_modules/
 
 # Environment — NEVER commit this
 .env
+.env.example
 
 # Logs
 logs/
