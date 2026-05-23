@@ -39,6 +39,7 @@ const PRODUCTION_ORIGINS = [
   process.env.ADMIN_URL  || 'http://localhost:3002',
   process.env.D2C_URL    || 'http://localhost:3003',
   process.env.QR_URL     || 'http://localhost:3004',
+  'https://coffee-ordering-system-murex.vercel.app',
 ].filter(Boolean);
 
 app.use(
