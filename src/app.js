@@ -24,7 +24,7 @@ const storeRoutes           = require('./modules/stores/store.routes');
 const personalizationRoutes = require('./modules/personalization/personalization.routes');
 const reportsRoutes         = require('./modules/reports/reports.routes');
 const d2cRoutes             = require('./modules/d2c/d2c.routes');
-const accountingRoutes      = require('./modules/accounting/accounting.routes');
+// const accountingRoutes   = require('./modules/accounting/accounting.routes');
 const adminRoutes           = require('./modules/admin/admin.routes');
 
 const app = express();
@@ -38,34 +38,33 @@ const PRODUCTION_ORIGINS = [
   process.env.KIOSK_URL  || 'http://localhost:3001',
   process.env.ADMIN_URL  || 'http://localhost:3002',
   process.env.D2C_URL    || 'http://localhost:3003',
-  process.env.QR_URL     || 'http://localhost:3004',  
+  process.env.QR_URL     || 'http://localhost:3004',
 ].filter(Boolean);
 
 app.use(
   cors({
     origin: env.IS_PRODUCTION
       ? (origin, callback) => {
-          /* Allow requests with no origin (mobile apps, Postman, curl) */
           if (!origin) return callback(null, true);
           if (PRODUCTION_ORIGINS.includes(origin)) return callback(null, true);
           logger.warn(`[CORS] Blocked origin: ${origin}`);
           return callback(new Error(`Origin ${origin} not allowed by CORS policy.`));
         }
-      : '*',   /* Development — allow all origins */
+      : '*',
 
     methods:       ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: [
       'Content-Type',
       'Authorization',
-      'X-Session-Id',     /* D2C guest cart identity */
-      'X-Store-Id',       /* Kiosk store context */
-      'X-Request-Id',     /* Optional tracing header */
+      'X-Session-Id',
+      'X-Store-Id',
+      'X-Request-Id',
     ],
     exposedHeaders: [
-      'Content-Disposition',  /* Needed for CSV export downloads */
+      'Content-Disposition',
     ],
     credentials: true,
-    maxAge: 86400,            /* Cache preflight for 24 hours */
+    maxAge: 86400,
   })
 );
 
@@ -105,8 +104,8 @@ const API = '/api/v1';
 
 app.use(`${API}/auth`,          authRoutes);
 app.use(`${API}/admin`,         adminRoutes);
-app.use(`${API}`,               productRoutes);       /* /products, /categories */
-app.use(`${API}`,               ingredientRoutes);    /* /ingredients */
+app.use(`${API}`,               productRoutes);
+app.use(`${API}`,               ingredientRoutes);
 app.use(`${API}/orders`,        orderRoutes);
 app.use(`${API}/kot`,           kotRoutes);
 app.use(`${API}/barista`,       baristaRoutes);
@@ -117,7 +116,7 @@ app.use(`${API}/stores`,        storeRoutes);
 app.use(`${API}/me`,            personalizationRoutes);
 app.use(`${API}/reports`,       reportsRoutes);
 app.use(`${API}/d2c`,           d2cRoutes);
-app.use(`${API}/accounting`,    accountingRoutes);    /* FIX: was missing */
+// app.use(`${API}/accounting`, accountingRoutes);
 
 /* ── 404 + global error handler (must be last) ───────────────────────────── */
 app.use(notFoundHandler);

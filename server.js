@@ -10,7 +10,7 @@ const { connectDB, disconnectDB } = require('./src/config/db');
 
 /* ── Cron imports — started AFTER DB connects ────────────────────────────── */
 const { startInventoryCrons }  = require('./src/modules/inventory/inventory.cron');
-const { startAccountingCrons } = require('./src/modules/accounting/accounting.cron');
+// const { startAccountingCrons } = require('./src/modules/accounting/accounting.cron');
 const { startProductionCrons } = require('./src/modules/production/production.cron');
 
 let server;
@@ -105,7 +105,7 @@ async function bootstrap() {
     initWebSocket(server);
 
     startInventoryCrons();
-    startAccountingCrons();
+    // startAccountingCrons();
     startProductionCrons();
     logger.info('[Server] Cron jobs started.');
 
