@@ -1,12 +1,12 @@
 
 ALTER TABLE production_batches
-  ADD INDEX IF NOT EXISTS idx_batch_product    (product_id),
-  ADD INDEX IF NOT EXISTS idx_batch_created    (produced_at),
-  ADD INDEX IF NOT EXISTS idx_batch_number     (batch_number);
+  ADD INDEX idx_batch_product    (product_id),
+  ADD INDEX idx_batch_created    (produced_at),
+  ADD INDEX idx_batch_number     (batch_number);
 
 ALTER TABLE production_batch_ingredients
-  ADD INDEX IF NOT EXISTS idx_batch_ing_batch  (batch_id),
-  ADD INDEX IF NOT EXISTS idx_batch_ing_ing    (ingredient_id);
+  ADD INDEX idx_batch_ing_batch  (batch_id),
+  ADD INDEX idx_batch_ing_ing    (ingredient_id);
 
 
 CREATE TABLE IF NOT EXISTS distribution_logs (

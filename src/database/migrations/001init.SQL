@@ -34,11 +34,10 @@ CREATE TABLE IF NOT EXISTS users (
   last_login_at  DATETIME,
   created_at     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at     DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (store_id) REFERENCES stores(id) ON DELETE SET NULL
+  FOREIGN KEY (store_id) REFERENCES stores(id) ON DELETE SET NULL,
+  INDEX idx_users_mobile (mobile),
+  INDEX idx_users_role (role)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE INDEX idx_users_mobile ON users(mobile);
-CREATE INDEX idx_users_role   ON users(role);
 
 CREATE TABLE IF NOT EXISTS otp_tokens (
   id          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -101,11 +100,10 @@ CREATE TABLE IF NOT EXISTS products (
   meta            JSON,
   created_at      DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at      DATETIME      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (category_id) REFERENCES categories(id)
+  FOREIGN KEY (category_id) REFERENCES categories(id),
+  INDEX idx_products_category (category_id),
+  INDEX idx_products_type (product_type)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-CREATE INDEX idx_products_category ON products(category_id);
-CREATE INDEX idx_products_type     ON products(product_type);
 
 CREATE TABLE IF NOT EXISTS ingredients (
   id            INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
